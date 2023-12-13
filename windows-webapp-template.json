@@ -1,5 +1,5 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
         "webAppName": {
@@ -138,14 +138,18 @@
         {
             "type": "Microsoft.Insights/components",
             "name": "[parameters('webAppName')]",
-            "apiVersion": "2014-04-01",
+            "apiVersion": "2020-02-02",
             "location": "[parameters('appInsightsLocation')]",
             "tags": {
                 "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', parameters('webAppName'))]": "Resource"
             },
+            "kind": "other",
             "properties": {
+                "Application_Type": "web",
+                "Flow_Type": "Bluefield",
                 "applicationId": "[parameters('webAppName')]",
-                "Request_Source": "AzureTfsExtensionAzureProject"
+                "Request_Source": "rest",
+                "WorkspaceResourceId": "/subscriptions/28c1d0f6-4d3c-40ac-b093-5ed6923a1835/resourcegroups/rg-westus3-azloadtestdemo/providers/microsoft.operationalinsights/workspaces/law-wus3-azloadtestdemo"
             }
         },
         {
