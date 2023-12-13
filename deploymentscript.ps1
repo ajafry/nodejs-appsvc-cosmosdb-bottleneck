@@ -52,13 +52,13 @@ while($true) {
     }
 }
 
-$location = Read-Host -Prompt "Enter location (eastus)"
+$location = Read-Host -Prompt "Enter location (westus3)"
 $location = $location.Trim()
 if([string]::IsNullOrWhiteSpace($location)) {
-    $location = "eastus"
+    $location = "westus3"
 }
 
-$resourceGroup = $deploymentName + $location + "-rg"
+$resourceGroup = "rg-" + $location + "-" + $deploymentName 
 Write-Host "Creating resource group " $resourceGroup
 az group create --location $location --name $resourceGroup --subscription $selectedSubscription
 $databaseName = $deploymentName.ToLower() + "db"
@@ -78,8 +78,8 @@ $publishConfig = az webapp deployment list-publishing-credentials --name $deploy
 
 Write-Host "Publishing sample app.. (this might take a minute or two)"
 git init
-git config user.email "you@example.com"
-git config user.name "Example man"
+git config user.email "ajafry@gmail.com"
+git config user.name "ajafry"
 git add -A
 git commit -m "Initial commit"
 $a = git remote add azwebapp $publishConfig.scmUri
